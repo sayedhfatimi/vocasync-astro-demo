@@ -1,0 +1,277 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="Home">
+  <section class="hero">
+    <h1>VocaSync Demo Blog</h1>
+    <p class="hero-subtitle">
+      Experience audio narration with word-level highlighting powered by
+      <a href="https://www.npmjs.com/package/@vocasync/astro" target="_blank" rel="noopener">@vocasync/astro</a>
+    </p>
+  </section>
+
+  <section class="posts">
+    <h2>Blog Posts</h2>
+    <ul class="post-list">
+      {posts.map((post) => {
+        const slug = post.id.replace(/\.(md|mdx)$/, "");
+        return (
+        <li class="post-card">
+          <a href={`/blog/${slug}/`}>
+            <article>
+              <h3>{post.data.title}</h3>
+              <p class="post-description">{post.data.description}</p>
+              <div class="post-meta">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </time>
+                {post.data.audio && (
+                  <span class="audio-badge">
+                    <span class="audio-icon">🎙️</span> Audio available
+                  </span>
+                )}
+              </div>
+            </article>
+          </a>
+        </li>
+      )})}
+    </ul>
+  </section>
+
+  <section class="features">
+    <h2>Features</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <span class="feature-icon">🎯</span>
+        <h3>Word Highlighting</h3>
+        <p>Each word lights up precisely when spoken, creating a karaoke-style reading experience.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">⌨️</span>
+        <h3>Keyboard Shortcuts</h3>
+        <p>Space to play/pause, arrows to seek, M to mute, H to toggle highlighting.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">📱</span>
+        <h3>Mini Player</h3>
+        <p>The player sticks to the bottom when scrolling, so you never lose control.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🎨</span>
+        <h3>Fully Themeable</h3>
+        <p>CSS variables let you match the player to your site's design perfectly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to add audio to your blog?</h2>
+    <p>Get started with VocaSync in minutes.</p>
+    <div class="cta-buttons">
+      <a href="https://vocasync.io" class="btn btn-primary">Get Started</a>
+      <a href="https://www.npmjs.com/package/@vocasync/astro" class="btn btn-secondary">npm package</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .hero-subtitle a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .hero-subtitle a:hover {
+    text-decoration: underline;
+  }
+
+  section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+
+  .posts {
+    margin-bottom: 3rem;
+  }
+
+  .post-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .post-card {
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .post-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+  }
+
+  .post-card a {
+    display: block;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .post-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+
+  .post-description {
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .audio-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: var(--color-border);
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+  }
+
+  .audio-icon {
+    font-size: 0.875rem;
+  }
+
+  .features {
+    margin-bottom: 3rem;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .feature {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    text-align: center;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .feature h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .cta {
+    text-align: center;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--color-border), transparent);
+    border-radius: 1rem;
+  }
+
+  .cta h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .cta p {
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
