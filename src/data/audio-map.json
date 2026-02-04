@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-02-02T15:58:47.118Z",
+  "updatedAt": "2026-02-04T14:45:02.459Z",
   "entries": {
     "getting-started": {
       "projectUuid": "019c1f10-8896-7000-85ce-d608c87c83f7",
@@ -8,7 +8,8 @@
       "audioUrl": "https://vocasync.io/api/v1/stream/019c1f10-8896-7000-85ce-d608c87c83f7/synthesis",
       "alignmentUrl": "https://vocasync.io/api/v1/stream/019c1f10-8896-7000-85ce-d608c87c83f7/alignment",
       "createdAt": "2026-02-02T15:56:46.921Z",
-      "updatedAt": "2026-02-02T15:56:46.921Z"
+      "updatedAt": "2026-02-04T14:45:02.082Z",
+      "publishableKey": "pk_55a1657b4f037a0e31aa5d06c39ddea5"
     },
     "science-of-audio-learning": {
       "projectUuid": "019c1f12-1e98-7000-a26a-e59d1233e790",
@@ -16,7 +17,8 @@
       "audioUrl": "https://vocasync.io/api/v1/stream/019c1f12-1e98-7000-a26a-e59d1233e790/synthesis",
       "alignmentUrl": "https://vocasync.io/api/v1/stream/019c1f12-1e98-7000-a26a-e59d1233e790/alignment",
       "createdAt": "2026-02-02T15:58:47.118Z",
-      "updatedAt": "2026-02-02T15:58:47.118Z"
+      "updatedAt": "2026-02-04T14:45:02.459Z",
+      "publishableKey": "pk_2b4c39a159e22cd768a79dc137639632"
     }
   }
 }
